@@ -10,6 +10,7 @@ import { OwnerProductsPage } from "./pages/owner/OwnerProductsPage";
 import { OwnerOrdersPage } from "./pages/owner/OwnerOrdersPage";
 import { OwnerEmployeesPage } from "./pages/owner/OwnerEmployeesPage";
 import { OwnerProfilePage } from "./pages/owner/OwnerProfilePage";
+import { OwnerTablesPage } from "./pages/owner/OwnerTablesPage";
 import { LiveOrdersPage } from "./pages/LiveOrdersPage";
 import { CustomerOrderPage } from "./pages/customer/CustomerOrderPage";
 
@@ -46,6 +47,7 @@ function App() {
                 { to: "/owner/products", label: t("nav.products") },
                 { to: "/owner/orders", label: t("nav.orders") },
                 { to: "/owner/employees", label: t("nav.employees") },
+                { to: "/owner/tables", label: t("nav.tables") },
                 { to: "/owner/profile", label: t("nav.profile") },
               ]}
             />
@@ -55,6 +57,7 @@ function App() {
           <Route path="/owner/products" element={<OwnerProductsPage />} />
           <Route path="/owner/orders" element={<OwnerOrdersPage />} />
           <Route path="/owner/employees" element={<OwnerEmployeesPage />} />
+          <Route path="/owner/tables" element={<OwnerTablesPage />} />
           <Route path="/owner/profile" element={<OwnerProfilePage />} />
         </Route>
       </Route>

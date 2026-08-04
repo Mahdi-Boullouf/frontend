@@ -1,4 +1,4 @@
-const API_URL = "https://backend-tc0c.onrender.com";
+const API_URL = "https://backend-lwrd.onrender.com";
 
 export class ApiError extends Error {
   status: number;
