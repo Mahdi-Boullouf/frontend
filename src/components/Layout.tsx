@@ -16,8 +16,9 @@ export function Layout({ navItems, title }: { navItems: NavItem[]; title: string
 
   const navContent = (
     <>
-      <div className="h-16 flex items-center px-5 border-b border-neutral-200">
-        <span className="text-lg font-semibold tracking-tight text-brand-600">EasyMakla</span>
+      <div className="h-16 flex items-center gap-2 px-5 border-b border-neutral-200">
+        <img src="/favicon.svg" alt="" className="w-7 h-7" />
+        <span className="text-lg font-semibold tracking-tight text-brand-600">TablaScan</span>
       </div>
       <nav className="flex-1 px-3 py-4 space-y-1">
         {navItems.map((item) => (

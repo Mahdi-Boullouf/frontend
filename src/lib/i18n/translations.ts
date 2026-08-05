@@ -9,7 +9,7 @@ const en = {
   "common.saving": "Saving...",
   "common.cancel": "Cancel",
 
-  "login.title": "EasyMakla",
+  "login.title": "TablaScan",
   "login.subtitle": "Sign in to your dashboard",
   "login.email": "Email",
   "login.password": "Password",
@@ -215,7 +215,7 @@ const fr: Record<TranslationKey, string> = {
   "common.saving": "Enregistrement...",
   "common.cancel": "Annuler",
 
-  "login.title": "EasyMakla",
+  "login.title": "TablaScan",
   "login.subtitle": "Connectez-vous à votre tableau de bord",
   "login.email": "Email",
   "login.password": "Mot de passe",
@@ -419,7 +419,7 @@ const ar: Record<TranslationKey, string> = {
   "common.saving": "جارٍ الحفظ...",
   "common.cancel": "إلغاء",
 
-  "login.title": "إيزي مقلة",
+  "login.title": "TablaScan",
   "login.subtitle": "سجّل الدخول إلى لوحة التحكم",
   "login.email": "البريد الإلكتروني",
   "login.password": "كلمة المرور",

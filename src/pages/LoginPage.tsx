@@ -35,6 +35,7 @@ export function LoginPage() {
       <PublicTopBar />
       <div className="flex items-center justify-center px-4 py-16">
         <Card className="w-full max-w-sm p-8">
+          <img src="/favicon.svg" alt="" className="w-12 h-12 mb-3" />
           <h1 className="text-xl font-semibold text-brand-600 mb-1">{t("login.title")}</h1>
           <p className="text-sm text-neutral-500 mb-6">{t("login.subtitle")}</p>
           <form onSubmit={handleSubmit} className="space-y-4">
