@@ -1,8 +1,9 @@
 import { useEffect, useState, type FormEvent } from "react";
+import { QRCodeSVG } from "qrcode.react";
 import { api, ApiError, API_ORIGIN } from "../../lib/api";
 import type { Restaurant } from "../../lib/types";
 import { useT } from "../../lib/i18n/I18nContext";
-import { Button, Card } from "../../components/ui";
+import { Button, Card, Input } from "../../components/ui";
 import { SubscriptionLocked } from "../../components/SubscriptionLocked";
 
 export function OwnerProfilePage() {
@@ -15,6 +16,7 @@ export function OwnerProfilePage() {
   const [error, setError] = useState("");
   const [saved, setSaved] = useState(false);
   const [lockedMessage, setLockedMessage] = useState("");
+  const [copied, setCopied] = useState(false);
 
   useEffect(() => {
     api
@@ -54,9 +56,36 @@ export function OwnerProfilePage() {
   };
 
   const logoPreview = logoFile ? URL.createObjectURL(logoFile) : restaurant.logo ? `${API_ORIGIN}${restaurant.logo}` : null;
+  const deliveryUrl = `${window.location.origin}/order/${restaurant.id}/delivery`;
+
+  const copyDeliveryLink = async () => {
+    try {
+      await navigator.clipboard.writeText(deliveryUrl);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      setError(t("tables.copyFailed"));
+    }
+  };
 
   return (
-    <div className="max-w-lg">
+    <div className="max-w-lg space-y-6">
+      <Card className="p-6">
+        <p className="text-sm font-semibold text-neutral-900 mb-1">🛵 {t("tables.deliveryTitle")}</p>
+        <p className="text-sm text-neutral-600 mb-4">{t("tables.deliveryHelp")}</p>
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+          <div className="rounded-lg border border-neutral-200 bg-white p-2 shrink-0">
+            <QRCodeSVG value={deliveryUrl} size={96} level="M" marginSize={1} />
+          </div>
+          <div className="flex-1 w-full min-w-0">
+            <Input readOnly value={deliveryUrl} onFocus={(e) => e.target.select()} />
+            <Button onClick={copyDeliveryLink} className="mt-2">
+              {copied ? t("tables.copied") : t("tables.copyLink")}
+            </Button>
+          </div>
+        </div>
+      </Card>
+
       <Card className="p-6">
         <p className="text-sm font-medium text-neutral-700 mb-4">{restaurant.name}</p>
 
