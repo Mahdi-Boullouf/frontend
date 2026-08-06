@@ -4,7 +4,7 @@ import { api, ApiError, API_ORIGIN } from "../../lib/api";
 import type { Category, ModifierOption, Product } from "../../lib/types";
 import { useT } from "../../lib/i18n/I18nContext";
 import { PublicTopBar } from "../../components/PublicTopBar";
-import { Button, Card } from "../../components/ui";
+import { Button, Card, Input } from "../../components/ui";
 import { ModifierSelectionModal } from "./ModifierSelectionModal";
 
 interface RestaurantMenu {
@@ -59,7 +59,9 @@ function RestaurantCover({ name, logo }: { name: string; logo: string | null }) 
 
 export function CustomerOrderPage() {
   const { restaurantId = "", tableName = "" } = useParams();
+  const isDelivery = tableName === "delivery";
   const { t } = useT();
+  const [customer, setCustomer] = useState({ name: "", phone: "", address: "" });
   const [menu, setMenu] = useState<RestaurantMenu | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -119,11 +121,18 @@ export function CustomerOrderPage() {
 
   const placeOrder = async () => {
     setPlaceError("");
+    if (isDelivery && (!customer.name.trim() || !customer.phone.trim() || !customer.address.trim())) {
+      setPlaceError(t("customer.fillDelivery"));
+      return;
+    }
     setPlacing(true);
     try {
       await api.post("/orders", {
         restaurantId,
-        tableName,
+        isDelivery,
+        ...(isDelivery
+          ? { customerName: customer.name.trim(), customerPhone: customer.phone.trim(), customerAddress: customer.address.trim() }
+          : { tableName }),
         items: lines.map((line) => ({ productId: line.productId, quantity: line.quantity, modifierOptionIds: line.optionIds })),
       });
       setCart({});
@@ -158,7 +167,9 @@ export function CustomerOrderPage() {
             ✓
           </div>
           <p className="text-base font-semibold text-neutral-900 mb-1">{t("customer.orderSent")}</p>
-          <p className="text-sm text-neutral-500 mb-6">{t("customer.orderSentDetail", { table: tableName })}</p>
+          <p className="text-sm text-neutral-500 mb-6">
+            {isDelivery ? t("customer.deliveryOrderSent") : t("customer.orderSentDetail", { table: tableName })}
+          </p>
           <Button onClick={() => setView("menu")} className="w-full justify-center">
             {t("customer.orderMore")}
           </Button>
@@ -175,7 +186,7 @@ export function CustomerOrderPage() {
       <div className="px-4 pt-4 flex flex-col items-center text-center">
         {menu.description && <p className="text-sm text-neutral-500 max-w-sm">{menu.description}</p>}
         <span className="mt-2 text-xs font-medium text-brand-600 bg-brand-50 rounded-full px-2.5 py-1">
-          {t("customer.table", { table: tableName })}
+          {isDelivery ? `🛵 ${t("customer.delivery")}` : t("customer.table", { table: tableName })}
         </span>
       </div>
 
@@ -284,6 +295,27 @@ export function CustomerOrderPage() {
               </div>
             </Card>
           ))}
+          {isDelivery && lines.length > 0 && (
+            <Card className="p-4 space-y-3">
+              <p className="text-sm font-semibold text-neutral-900">{t("customer.deliveryDetails")}</p>
+              <Input
+                placeholder={t("customer.name")}
+                value={customer.name}
+                onChange={(e) => setCustomer((c) => ({ ...c, name: e.target.value }))}
+              />
+              <Input
+                type="tel"
+                placeholder={t("customer.phone")}
+                value={customer.phone}
+                onChange={(e) => setCustomer((c) => ({ ...c, phone: e.target.value }))}
+              />
+              <Input
+                placeholder={t("customer.address")}
+                value={customer.address}
+                onChange={(e) => setCustomer((c) => ({ ...c, address: e.target.value }))}
+              />
+            </Card>
+          )}
           {placeError && <p className="text-sm text-red-600">{placeError}</p>}
         </div>
       )}

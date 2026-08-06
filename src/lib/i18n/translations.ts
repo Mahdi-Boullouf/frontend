@@ -204,6 +204,19 @@ const en = {
   "customer.orderFailed": "Failed to place order",
   "customer.loadFailed": "Failed to load menu",
   "customer.eachPrice": "{{price}} DZD each",
+  "customer.delivery": "Delivery",
+  "customer.deliveryDetails": "Delivery details",
+  "customer.name": "Full name",
+  "customer.phone": "Phone number",
+  "customer.address": "Delivery address",
+  "customer.fillDelivery": "Please enter your name, phone and address.",
+  "customer.deliveryOrderSent": "We've got your delivery order — we'll call to confirm.",
+  "staff.delivery": "Delivery",
+  "tables.deliveryTitle": "Home delivery link",
+  "tables.deliveryHelp": "Share this link (or QR) so customers can order for delivery from home.",
+  "tables.copyLink": "Copy link",
+  "tables.copied": "Copied!",
+  "tables.copyFailed": "Couldn't copy the link",
 } as const;
 
 export type TranslationKey = keyof typeof en;
@@ -410,6 +423,19 @@ const fr: Record<TranslationKey, string> = {
   "customer.orderFailed": "Échec de l'envoi de la commande",
   "customer.loadFailed": "Échec du chargement du menu",
   "customer.eachPrice": "{{price}} DZD chacun",
+  "customer.delivery": "Livraison",
+  "customer.deliveryDetails": "Informations de livraison",
+  "customer.name": "Nom complet",
+  "customer.phone": "Numéro de téléphone",
+  "customer.address": "Adresse de livraison",
+  "customer.fillDelivery": "Veuillez saisir votre nom, téléphone et adresse.",
+  "customer.deliveryOrderSent": "Nous avons bien reçu votre commande de livraison — nous vous appellerons pour confirmer.",
+  "staff.delivery": "Livraison",
+  "tables.deliveryTitle": "Lien de livraison à domicile",
+  "tables.deliveryHelp": "Partagez ce lien (ou le QR) pour que vos clients commandent en livraison depuis chez eux.",
+  "tables.copyLink": "Copier le lien",
+  "tables.copied": "Copié !",
+  "tables.copyFailed": "Échec de la copie du lien",
 };
 
 const ar: Record<TranslationKey, string> = {
@@ -614,6 +640,19 @@ const ar: Record<TranslationKey, string> = {
   "customer.orderFailed": "فشل إرسال الطلب",
   "customer.loadFailed": "فشل تحميل القائمة",
   "customer.eachPrice": "{{price}} دج للواحدة",
+  "customer.delivery": "توصيل",
+  "customer.deliveryDetails": "معلومات التوصيل",
+  "customer.name": "الاسم الكامل",
+  "customer.phone": "رقم الهاتف",
+  "customer.address": "عنوان التوصيل",
+  "customer.fillDelivery": "يرجى إدخال الاسم ورقم الهاتف والعنوان.",
+  "customer.deliveryOrderSent": "استلمنا طلب التوصيل — سنتصل بك للتأكيد.",
+  "staff.delivery": "توصيل",
+  "tables.deliveryTitle": "رابط الطلب للتوصيل",
+  "tables.deliveryHelp": "شارك هذا الرابط (أو رمز QR) ليطلب زبائنك التوصيل من منازلهم.",
+  "tables.copyLink": "نسخ الرابط",
+  "tables.copied": "تم النسخ!",
+  "tables.copyFailed": "تعذّر نسخ الرابط",
 };
 
 export const translations: Record<Lang, Record<TranslationKey, string>> = { en, fr, ar };

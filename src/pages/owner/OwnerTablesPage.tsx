@@ -14,6 +14,7 @@ export function OwnerTablesPage() {
   const [lockedMessage, setLockedMessage] = useState("");
   const [from, setFrom] = useState(1);
   const [to, setTo] = useState(30);
+  const [copied, setCopied] = useState(false);
 
   useEffect(() => {
     api
@@ -38,9 +39,36 @@ export function OwnerTablesPage() {
   if (loading || !restaurant) return null;
 
   const urlFor = (table: number) => `${window.location.origin}/order/${restaurant.id}/${table}`;
+  const deliveryUrl = `${window.location.origin}/order/${restaurant.id}/delivery`;
+
+  const copyDeliveryLink = async () => {
+    try {
+      await navigator.clipboard.writeText(deliveryUrl);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      setError(t("tables.copyFailed"));
+    }
+  };
 
   return (
     <div className="max-w-4xl">
+      <Card className="p-6 mb-6 print:hidden">
+        <p className="text-sm font-semibold text-neutral-900 mb-1">🛵 {t("tables.deliveryTitle")}</p>
+        <p className="text-sm text-neutral-600 mb-4">{t("tables.deliveryHelp")}</p>
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
+          <div className="rounded-lg border border-neutral-200 bg-white p-2 shrink-0">
+            <QRCodeSVG value={deliveryUrl} size={96} level="M" marginSize={1} />
+          </div>
+          <div className="flex-1 w-full min-w-0">
+            <Input readOnly value={deliveryUrl} onFocus={(e) => e.target.select()} />
+            <Button onClick={copyDeliveryLink} className="mt-2">
+              {copied ? t("tables.copied") : t("tables.copyLink")}
+            </Button>
+          </div>
+        </div>
+      </Card>
+
       <Card className="p-6 mb-6 print:hidden">
         <p className="text-sm text-neutral-600 mb-4">{t("tables.help")}</p>
         <div className="flex flex-wrap items-end gap-4">

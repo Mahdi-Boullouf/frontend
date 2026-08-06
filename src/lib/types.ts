@@ -89,7 +89,11 @@ export interface Order {
   status: OrderStatus;
   isPrepared: boolean;
   isPaid: boolean;
-  tableName: string;
+  isDelivery: boolean;
+  tableName: string | null;
+  customerName: string | null;
+  customerPhone: string | null;
+  customerAddress: string | null;
   createdAt: string;
   items: OrderItem[];
 }

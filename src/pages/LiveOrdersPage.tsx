@@ -100,9 +100,27 @@ export function LiveOrdersPage() {
         {orders.map((order) => (
           <Card key={order.id} className="p-4">
             <div className="flex items-center justify-between mb-2 gap-2">
-              <p className="text-lg font-semibold text-neutral-900">{t("customer.table", { table: order.tableName })}</p>
+              {order.isDelivery ? (
+                <span className="inline-flex items-center gap-1 text-sm font-semibold text-white bg-brand-600 rounded-full px-3 py-1">
+                  🛵 {t("staff.delivery")}
+                </span>
+              ) : (
+                <p className="text-lg font-semibold text-neutral-900">{t("customer.table", { table: order.tableName })}</p>
+              )}
               <span className="text-xs text-neutral-400 shrink-0">{new Date(order.createdAt).toLocaleTimeString()}</span>
             </div>
+
+            {order.isDelivery && (
+              <div className="mb-3 rounded-lg bg-brand-50 border border-brand-100 p-2 text-sm text-neutral-600 space-y-0.5">
+                {order.customerName && <p className="font-medium text-neutral-900">{order.customerName}</p>}
+                {order.customerPhone && (
+                  <p dir="ltr" className="text-start">
+                    <a href={`tel:${order.customerPhone}`} className="text-brand-700">{order.customerPhone}</a>
+                  </p>
+                )}
+                {order.customerAddress && <p>{order.customerAddress}</p>}
+              </div>
+            )}
 
             <ul className="text-sm text-neutral-600 space-y-1 mb-3">
               {order.items.map((item) => (
